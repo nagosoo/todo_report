@@ -8,22 +8,17 @@ class PlanTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController textEditingController = TextEditingController();
-    return SizedBox(
-      height: 50,
-      child: TextField(
-        controller: textEditingController,
-        maxLines: 2,
-        maxLength: 22,
-        style: AssetFont.mapoAgape400.copyWith(
-          fontSize: 20,
-          overflow: TextOverflow.ellipsis,
-          height: 1,
-        ),
-        decoration: const InputDecoration(
-            isDense: true,
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.all(5),
-            counterText: ''),
+    return TextField(
+      minLines: 1,
+      maxLines: 2,
+      controller: textEditingController,
+      textAlign: TextAlign.center,
+      style: AssetFont.mapoAgape400.copyWith(
+        fontSize: 20,
+        overflow: TextOverflow.ellipsis,
+      ),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
       ),
     );
   }

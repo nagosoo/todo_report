@@ -57,13 +57,21 @@ class EvaluationTextField extends StatelessWidget {
               ),
             ),
           ),
-          child: TextField(
-            minLines: MediaQuery.of(context).size.height * 0.2 ~/ 20,
-            maxLines: MediaQuery.of(context).size.height * 0.2 ~/ 20,
-            textAlign: TextAlign.center,
-            style: AssetFont.mapoAgape400.copyWith(
-              fontSize: 20,
-              height: 1,
+          child: SizedBox(
+            height: 140,
+            child: Center(
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(5),
+                ),
+                textAlign: TextAlign.center,
+                style: AssetFont.mapoAgape400.copyWith(
+                  fontSize: 20,),
+              ),
             ),
           ),
         )

@@ -52,7 +52,7 @@ class TableWidget extends StatelessWidget {
           ],
         ),
         ...List.generate(
-          MediaQuery.of(context).size.height * 0.6 ~/ 50,
+          10,
           (index) => const TableRow(
             children: [
               PlanTextField(),

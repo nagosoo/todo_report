@@ -5,18 +5,30 @@ class StampContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 30,
-      child: ElevatedButton(
-        onPressed: (){
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return StampContainer();
-            },
-          );
-        }, child: null,
+    return ElevatedButton(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.resolveWith<double>(
+            (Set<MaterialState> states) {
+          return 0;
+        }),
+        backgroundColor:
+            MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+          return Colors.transparent;
+        }),
+        foregroundColor:
+            MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+          return Colors.transparent;
+        }),
       ),
+      onPressed: () {
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return StampBottomSheetDialog();
+          },
+        );
+      },
+      child: SizedBox.shrink(),
     );
   }
 }
@@ -26,7 +38,10 @@ class StampBottomSheetDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: 235,
+      width: MediaQuery.of(context).size.width - 30,
+      color: Colors.yellow,
+    );
   }
 }
-
