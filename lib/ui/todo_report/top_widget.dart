@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:result_report/util/ext.dart';
 
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
@@ -18,7 +19,7 @@ class TopWidget extends StatelessWidget {
         SizedBox(
           height: 85,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -28,15 +29,14 @@ class TopWidget extends StatelessWidget {
                   letterSpacing: 10,
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7 - 15,
                 decoration: const BoxDecoration(
                   color: AssetColor.grey,
                   border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black,
-                      width: 1,
-                    ),
                     left: BorderSide(
                       color: Colors.black,
                       width: 1,
@@ -50,8 +50,7 @@ class TopWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(7, 3, 0, 3),
                   child: Text(
-                    //'작성일자: ${dateTime.year}.${dateTime.month}.${dateTime.day}.${dateTime.weekday}',
-                    '작성일자: 2023.09.08.화',
+                    '작성일자: ${dateTime.year}.${dateTime.month}.${dateTime.day}.${dateTime.getDayFromDateFormat()}',
                     style: AssetFont.bareunBatang500.copyWith(
                       fontSize: 16,
                     ),
@@ -68,11 +67,21 @@ class TopWidget extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.3 - 15,
               height: 85,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AssetColor.grey,
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
+                border: Border(
+                  left: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                  right: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                  top: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
                 ),
               ),
               child: Center(

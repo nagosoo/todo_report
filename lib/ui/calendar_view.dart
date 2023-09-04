@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:result_report/ui/result_report/result_report_view.dart';
+import 'package:result_report/ui/todo_report/result_report_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarView extends StatelessWidget {
+class CalendarView extends StatefulWidget {
   const CalendarView({super.key});
+
+  @override
+  State<CalendarView> createState() => _CalendarViewState();
+}
+
+class _CalendarViewState extends State<CalendarView> {
+
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,32 @@ class CalendarView extends StatelessWidget {
             titleCentered: true,
             formatButtonVisible: false,
           ),
+          calendarBuilders: CalendarBuilders(
+            markerBuilder: (context, date, events) {
+              DateTime _date = DateTime(date.year, date.month, date.day);
+              // if ( isSameDay(_date, _selectedDay )) {
+              //   return Container(
+              //     width: MediaQuery.of(context).size.width * 0.11,
+              //     padding: const EdgeInsets.only(bottom: 5),
+              //     decoration:  BoxDecoration(
+              //       color: Colors.orange.withOpacity(0.7),
+              //       shape: BoxShape.circle,
+              //     ),
+              //   );
+              // }
+              return null;
+            },
+          ),
+          calendarStyle: const CalendarStyle(
+            weekendTextStyle: TextStyle(color: Colors.red),
+            holidayTextStyle: TextStyle(color: Colors.red),
+          ),
           onDaySelected: (selectedDay, focusedDay) {
+            if (!isSameDay(_selectedDay, selectedDay)) {
+              setState(() {
+                _selectedDay = selectedDay;
+              });
+            }
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => ResultReportView(

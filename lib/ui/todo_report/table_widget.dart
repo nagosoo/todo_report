@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:result_report/asset/asset_color.dart';
 import 'package:result_report/asset/asset_font.dart';
+import 'package:result_report/ui/todo_report/plan_text_field.dart';
+import 'package:result_report/ui/todo_report/stamp_container.dart';
 
-class ListWidget extends StatelessWidget {
-  const ListWidget({super.key});
+class TableWidget extends StatelessWidget {
+  const TableWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Table(
       border: TableBorder.symmetric(
         inside: const BorderSide(
-          color: AssetColor.grey2,
+          color: AssetColor.greyDivider,
           width: 1,
         ),
         outside: const BorderSide(
@@ -54,35 +55,12 @@ class ListWidget extends StatelessWidget {
           MediaQuery.of(context).size.height * 0.6 ~/ 50,
           (index) => const TableRow(
             children: [
-              PlanContainer(),
-              PlanContainer(),
+              PlanTextField(),
+              StampContainer(),
             ],
           ),
         )
       ],
-    );
-  }
-}
-
-class PlanContainer extends StatelessWidget {
-  const PlanContainer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  SizedBox(
-      height: 50,
-      child: TextField(
-        keyboardType: TextInputType.multiline,
-        maxLines:2,
-        style: AssetFont.mapoAgape400.copyWith(
-          fontSize: 18,
-          overflow: TextOverflow.ellipsis,
-        ),
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-
-        ),
-      ),
     );
   }
 }
