@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eunji.result_report.result_report">
+    package="com.eunji.todo_report">
    <application
-        android:label="result_report"
+        android:label="투두보고서"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
