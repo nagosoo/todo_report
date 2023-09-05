@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:todo_report/asset/asset_color.dart';
 
 import 'ui/calendar_view.dart';
 
@@ -13,8 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      themeMode: ThemeMode.light,
+      theme: ThemeData.light().copyWith(
+        scrollbarTheme: ScrollbarThemeData(
+          trackColor:
+              MaterialStateProperty.all<Color>(AssetColor.greyScrollbar),
+          thumbColor: MaterialStateProperty.all<Color>(AssetColor.green),
+        ),
       ),
       home: const CalendarView(),
     );

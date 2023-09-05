@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:result_report/asset/asset_color.dart';
-import 'package:result_report/asset/asset_font.dart';
+import '../../asset/asset_color.dart';
+import '../../asset/asset_font.dart';
 
 class EvaluationTextField extends StatelessWidget {
   const EvaluationTextField({super.key});
@@ -70,7 +70,8 @@ class EvaluationTextField extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
                 style: AssetFont.mapoAgape400.copyWith(
-                  fontSize: 20,),
+                  fontSize: 20,
+                ),
               ),
             ),
           ),

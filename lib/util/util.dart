@@ -1,0 +1,1 @@
+typedef ListOfString = List<String>;
