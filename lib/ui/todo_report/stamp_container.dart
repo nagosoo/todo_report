@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_report/asset/asset_color.dart';
 import 'package:todo_report/providers/stamp_provider.dart';
+import 'package:todo_report/util/enum.dart';
+import 'package:todo_report/util/ext.dart';
+
+import '../../util/const.dart';
 
 class StampContainer extends StatelessWidget {
   const StampContainer({super.key});
@@ -35,13 +39,21 @@ class StampContainer extends StatelessWidget {
       child: ListenableBuilder(
         listenable: stampNotifier,
         builder: (BuildContext context, Widget? child) {
-          return stampNotifier.stamp.isNotEmpty
-              ? SvgPicture.asset(
-                  'assets/images/수락.svg',
-                  width: 40,
-                  height: 45,
-                )
-              : const SizedBox.shrink();
+          if (stampNotifier.stamp.isNotEmpty) {
+            return stampNotifier.stamp.getImgType() == ImgType.svg
+                ? SvgPicture.asset(
+                    stampNotifier.stamp,
+                    width: 40,
+                    height: 45,
+                  )
+                : Image.asset(
+                    stampNotifier.stamp,
+                    width: 40,
+                    height: 45,
+                  );
+          } else {
+            return const SizedBox.shrink();
+          }
         },
       ),
     );
@@ -77,18 +89,22 @@ class StampBottomSheetDialog extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               crossAxisCount: 4,
               children: List.generate(
-                80,
+                stampList.length,
                 (index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                       stampProvider.chooseStamp(
-                        'assets/images/수락.svg',
+                        stampList[index],
                       );
                     },
-                    child: SvgPicture.asset(
-                      'assets/images/수락.svg',
-                    ),
+                    child: stampList[index].getImgType() == ImgType.svg
+                        ? SvgPicture.asset(
+                            stampList[index],
+                          )
+                        : Image.asset(
+                            stampList[index],
+                          ),
                   );
                 },
               ),
