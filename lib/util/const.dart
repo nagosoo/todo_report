@@ -1,4 +1,5 @@
 final stampList  = [
+  'assets/images/도장없음.svg',
   'assets/images/거절_blue.svg',
   'assets/images/거절_red.svg',
   'assets/images/견뎌_blue.svg',

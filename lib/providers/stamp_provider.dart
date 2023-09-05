@@ -6,7 +6,16 @@ class StampProvider with ChangeNotifier {
   String get stamp => _stamp;
 
   void chooseStamp(String stampAsset) {
+    if (stampAsset.contains('도장없음')) {
+      clearStamp();
+      return;
+    }
     _stamp = stampAsset;
+    notifyListeners();
+  }
+
+  void clearStamp() {
+    _stamp = '';
     notifyListeners();
   }
 }
