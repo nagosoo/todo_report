@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo_report/datasource/local/app_database.dart';
+import 'package:todo_report/ui/todo_report/stamp_container.dart';
+import 'package:todo_report/ui/todo_report/todo_text_field.dart';
+import 'package:todo_report/ui/todo_report/table_widget.dart';
+import 'package:todo_report/ui/todo_report/viewmodel/todo_report_viewmodel.dart';
 import 'package:todo_report/util/ext.dart';
 
 import '../../asset/asset_color.dart';
@@ -61,7 +66,19 @@ class TopWidget extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () {
+
+            for (var key in TodoReportProvider.todoTextFieldKey) {
+              String? plan = (key.currentWidget as TextField).controller?.text;
+              debugPrint('계획들 : $plan');
+            }
+            for (var key in TodoReportProvider.stampKey) {
+              String? plan = (key.currentContext?.findAncestorStateOfType() as StampContainerState).stampNotifier.stamp;
+              debugPrint('stamp : $plan');
+            }
+
+            Navigator.of(context).pop();
+          },
           child: Align(
             alignment: Alignment.topRight,
             child: Container(

@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 
 import '../../asset/asset_font.dart';
 
-class PlanTextField extends StatelessWidget {
-  const PlanTextField({super.key});
+class TodoTextField extends StatefulWidget {
+  const TodoTextField({super.key, required this.todoTextFieldKey});
+
+  final GlobalKey<TodoTextFieldState> todoTextFieldKey;
+
+  @override
+  State<TodoTextField> createState() => TodoTextFieldState();
+}
+
+class TodoTextFieldState extends State<TodoTextField> {
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
     return TextField(
+      key: widget.todoTextFieldKey,
       minLines: 1,
       maxLines: 2,
       controller: textEditingController,

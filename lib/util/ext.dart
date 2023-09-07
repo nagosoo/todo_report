@@ -5,6 +5,16 @@ extension DateTimeParsing on DateTime {
   String getDayFromDateFormat() {
     return DateFormat('EEE', 'ko_KR').format(this);
   }
+
+  int getMicrosecondsSinceEpochFromDateTime() {
+    return microsecondsSinceEpoch;
+  }
+}
+
+extension IntParsing on int {
+  DateTime getDateTimeFromMicrosecondsSinceEpoch() {
+    return DateTime.fromMicrosecondsSinceEpoch(this);
+  }
 }
 
 extension GetImgType on String {

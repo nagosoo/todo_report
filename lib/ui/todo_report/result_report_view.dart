@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_report/ui/todo_report/top_widget.dart';
 
-import 'evaluation_text_field.dart';
+import 'rating_text_field.dart';
 import 'table_widget.dart';
 
 class ResultReportView extends StatelessWidget {
@@ -25,7 +25,7 @@ class ResultReportView extends StatelessWidget {
                   dateTime: dateTime,
                 ),
                 const TableWidget(),
-                const EvaluationTextField(),
+                const RatingTextField(),
               ],
             ),
           ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
 
-class EvaluationTextField extends StatelessWidget {
-  const EvaluationTextField({super.key});
+class RatingTextField extends StatelessWidget {
+  const RatingTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

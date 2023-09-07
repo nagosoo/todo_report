@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/ui/todo_report/plan_text_field.dart';
+import 'package:todo_report/ui/todo_report/todo_text_field.dart';
 import 'package:todo_report/ui/todo_report/stamp_container.dart';
+import 'package:todo_report/ui/todo_report/viewmodel/todo_report_viewmodel.dart';
 
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
@@ -54,10 +55,14 @@ class TableWidget extends StatelessWidget {
         ),
         ...List.generate(
           10,
-          (index) => const TableRow(
+          (index) => TableRow(
             children: [
-              PlanTextField(),
-              StampContainer(),
+              TodoTextField(
+                todoTextFieldKey: TodoReportProvider.todoTextFieldKey[index],
+              ),
+               StampContainer(
+                 stampKey: TodoReportProvider.stampKey[index],
+               ),
             ],
           ),
         )

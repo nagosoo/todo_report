@@ -7,13 +7,21 @@ import 'package:todo_report/util/ext.dart';
 
 import '../../util/const.dart';
 
-class StampContainer extends StatelessWidget {
-  const StampContainer({super.key});
+class StampContainer extends StatefulWidget {
+  const StampContainer({super.key, required this.stampKey});
+
+  final GlobalKey<StampContainerState> stampKey;
 
   @override
+  State<StampContainer> createState() => StampContainerState();
+}
+
+class StampContainerState extends State<StampContainer> {
+  StampProvider stampNotifier = StampProvider();
+  @override
   Widget build(BuildContext context) {
-    StampProvider stampNotifier = StampProvider();
     return ElevatedButton(
+      key: widget.stampKey,
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
             (Set<MaterialState> states) {

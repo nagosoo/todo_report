@@ -51,3 +51,6 @@ final stampList  = [
   'assets/images/쩝.._blue.svg',
   'assets/images/쩝.._red.svg',
 ];
+
+ const tableTodoReport = 'table_todo_report';
+ const tableShortRating = 'table_short_rating';
