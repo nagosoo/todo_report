@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/datasource/local/app_database.dart';
-import 'package:todo_report/ui/todo_report/stamp_container.dart';
-import 'package:todo_report/ui/todo_report/todo_text_field.dart';
-import 'package:todo_report/ui/todo_report/table_widget.dart';
-import 'package:todo_report/ui/todo_report/viewmodel/todo_report_viewmodel.dart';
+import 'package:todo_report/model/todo_report_model.dart';
+import 'package:todo_report/providers/todo_report_viewmodel.dart';
 import 'package:todo_report/util/ext.dart';
 
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
+import '../../repository/todo_report_repository.dart';
 
 class TopWidget extends StatelessWidget {
   const TopWidget({
@@ -67,16 +65,7 @@ class TopWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-
-            for (var key in TodoReportProvider.todoTextFieldKey) {
-              String? plan = (key.currentWidget as TextField).controller?.text;
-              debugPrint('계획들 : $plan');
-            }
-            for (var key in TodoReportProvider.stampKey) {
-              String? plan = (key.currentContext?.findAncestorStateOfType() as StampContainerState).stampNotifier.stamp;
-              debugPrint('stamp : $plan');
-            }
-
+            saveTodoReport(dateTime);
             Navigator.of(context).pop();
           },
           child: Align(
@@ -116,5 +105,10 @@ class TopWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  saveTodoReport(DateTime dateTime) async {
+    List<TodoReportModel> todoReportList = TodoReportViewModel().todoReportList;
+    TodoReportRepository().saveTodoReportDB(todoReportList);
   }
 }

@@ -24,7 +24,9 @@ class ResultReportView extends StatelessWidget {
                 TopWidget(
                   dateTime: dateTime,
                 ),
-                const TableWidget(),
+                TableWidget(
+                  dateTime: dateTime,
+                ),
                 const RatingTextField(),
               ],
             ),

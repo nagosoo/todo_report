@@ -1,10 +1,10 @@
 class ShortRatingModel {
-  final int id;
+  final int? id;
   final int dateTime;
   final String? description;
 
   ShortRatingModel({
-    required this.id,
+    this.id,
     required this.dateTime,
     this.description,
   });

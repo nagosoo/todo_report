@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 class StampProvider with ChangeNotifier {
-  String _stamp = '';
+  String? _stamp;
 
-  String get stamp => _stamp;
+  String? get stamp => _stamp;
 
   void chooseStamp(String stampAsset) {
     if (stampAsset.contains('도장없음')) {
@@ -15,7 +15,7 @@ class StampProvider with ChangeNotifier {
   }
 
   void clearStamp() {
-    _stamp = '';
+    _stamp = null;
     notifyListeners();
   }
 }

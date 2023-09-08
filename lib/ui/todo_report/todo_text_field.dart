@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:todo_report/providers/todo_report_viewmodel.dart';
 
 import '../../asset/asset_font.dart';
 
-class TodoTextField extends StatefulWidget {
-  const TodoTextField({super.key, required this.todoTextFieldKey});
+class TodoTextField extends StatelessWidget {
+  const TodoTextField({super.key, required this.index, required this.dateTime, this.title});
 
-  final GlobalKey<TodoTextFieldState> todoTextFieldKey;
-
-  @override
-  State<TodoTextField> createState() => TodoTextFieldState();
-}
-
-class TodoTextFieldState extends State<TodoTextField> {
-  final TextEditingController textEditingController = TextEditingController();
+  final int index;
+  final DateTime dateTime;
+  final  String? title;
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController textEditingController = TextEditingController();
+    if(title!=null) {textEditingController.text = title!;}
+    textEditingController.addListener(() {
+      TodoReportViewModel()
+          .editTodoReportTitle(textEditingController.text, dateTime, index);
+    });
     return TextField(
-      key: widget.todoTextFieldKey,
       minLines: 1,
       maxLines: 2,
       controller: textEditingController,

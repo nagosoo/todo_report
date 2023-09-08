@@ -1,12 +1,12 @@
 class TodoReportModel {
-  final int id;
-  final int dateTime;
-  final String? title;
-  final String? stamp;
+  final int? id;
+  int? dateTime;
+  String? title;
+  String? stamp;
 
   TodoReportModel({
-    required this.id,
-    required this.dateTime,
+    this.id,
+    this.dateTime,
     this.title,
     this.stamp,
   });

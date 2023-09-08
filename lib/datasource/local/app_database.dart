@@ -69,7 +69,7 @@ CREATE TABLE $tableShortRating (
   }
 
   //update shortRatingModel
-  Future<int> update(ShortRatingModel shortRatingModel) async {
+  Future<int> updateShortRatingModel(ShortRatingModel shortRatingModel) async {
     final db = await database;
 
     return db.update(
@@ -81,7 +81,7 @@ CREATE TABLE $tableShortRating (
   }
 
   //특정 날짜 TodoReportModel 읽기
-  Future<List<TodoReportModel>> readTodoReportModelWithDate(
+  Future<List<TodoReportModel>> getTodoReportModelWithDate(
       int dateTime) async {
     final db = await database;
 
@@ -100,8 +100,8 @@ CREATE TABLE $tableShortRating (
       return TodoReportModel(
         id: maps[index]['id'] as int,
         dateTime: maps[index]['dateTime'] as int,
-        title: maps[index]['title'] as String,
-        stamp: maps[index]['stamp'] as String,
+        title: maps[index]['title'] as String?,
+        stamp: maps[index]['stamp'] as String?,
       );
     });
 
@@ -109,7 +109,7 @@ CREATE TABLE $tableShortRating (
   }
 
   //특정 날짜 shortRatingModel 읽기
-  Future<List<ShortRatingModel>> readShortRatingModelWithDate(
+  Future<List<ShortRatingModel>> getShortRatingModelWithDate(
       int dateTime) async {
     final db = await database;
 
@@ -132,7 +132,7 @@ CREATE TABLE $tableShortRating (
       return ShortRatingModel(
         id: maps[index]['id'] as int,
         dateTime: maps[index]['dateTime'] as int,
-        description: maps[index]['description'] as String,
+        description: maps[index]['description'] as String?,
       );
     });
 

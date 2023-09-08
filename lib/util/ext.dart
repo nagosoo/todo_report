@@ -6,13 +6,13 @@ extension DateTimeParsing on DateTime {
     return DateFormat('EEE', 'ko_KR').format(this);
   }
 
-  int getMicrosecondsSinceEpochFromDateTime() {
+  int toMicrosecondsSinceEpochFromDateTime() {
     return microsecondsSinceEpoch;
   }
 }
 
 extension IntParsing on int {
-  DateTime getDateTimeFromMicrosecondsSinceEpoch() {
+  DateTime toDateTimeFromMicrosecondsSinceEpoch() {
     return DateTime.fromMicrosecondsSinceEpoch(this);
   }
 }

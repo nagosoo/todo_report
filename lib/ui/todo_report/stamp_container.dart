@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_report/asset/asset_color.dart';
 import 'package:todo_report/providers/stamp_provider.dart';
+import 'package:todo_report/providers/todo_report_viewmodel.dart';
 import 'package:todo_report/util/enum.dart';
 import 'package:todo_report/util/ext.dart';
 
 import '../../util/const.dart';
 
-class StampContainer extends StatefulWidget {
-  const StampContainer({super.key, required this.stampKey});
+class StampContainer extends StatelessWidget {
+  const StampContainer({super.key, required this.index, required this.dateTime, this.stamp});
 
-  final GlobalKey<StampContainerState> stampKey;
+  final int index;
+  final DateTime dateTime;
+  final String? stamp;
 
-  @override
-  State<StampContainer> createState() => StampContainerState();
-}
-
-class StampContainerState extends State<StampContainer> {
-  StampProvider stampNotifier = StampProvider();
   @override
   Widget build(BuildContext context) {
+    StampProvider stampNotifier = StampProvider();
+    if(stamp!=null){
+      stampNotifier.chooseStamp(stamp!);
+    }
     return ElevatedButton(
-      key: widget.stampKey,
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
             (Set<MaterialState> states) {
@@ -47,21 +47,21 @@ class StampContainerState extends State<StampContainer> {
       child: ListenableBuilder(
         listenable: stampNotifier,
         builder: (BuildContext context, Widget? child) {
-          if (stampNotifier.stamp.isNotEmpty) {
-            return stampNotifier.stamp.getImgType() == ImgType.svg
-                ? SvgPicture.asset(
-                    stampNotifier.stamp,
-                    width: 40,
-                    height: 45,
-                  )
-                : Image.asset(
-                    stampNotifier.stamp,
-                    width: 40,
-                    height: 45,
-                  );
-          } else {
+          TodoReportViewModel().editTodoReportStamp(stampNotifier.stamp, dateTime, index);
+          if (stampNotifier.stamp == null) {
             return const SizedBox.shrink();
           }
+          return stampNotifier.stamp!.getImgType() == ImgType.svg
+              ? SvgPicture.asset(
+                  stampNotifier.stamp!,
+                  width: 40,
+                  height: 45,
+                )
+              : Image.asset(
+                  stampNotifier.stamp!,
+                  width: 40,
+                  height: 45,
+                );
         },
       ),
     );
