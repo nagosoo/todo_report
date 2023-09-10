@@ -13,16 +13,6 @@ class TodoReportRepository with ChangeNotifier {
     return _instance;
   }
 
-  saveTodoReportDB(List<TodoReportModel> todoReportList) {
-    for (TodoReportModel e in todoReportList) {
-      if (e.id != null) {
-        updateTodoReportDB(e);
-      } else {
-        insertTodoReportDB(e);
-      }
-    }
-  }
-
   Future<List<TodoReportModel>> getTodoReportDB(DateTime dateTime) async {
     return await AppDatabase().getTodoReportModelWithDate(
         dateTime.toMicrosecondsSinceEpochFromDateTime());

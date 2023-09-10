@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_report/asset/asset_color.dart';
-import 'package:todo_report/providers/stamp_provider.dart';
-import 'package:todo_report/providers/todo_report_viewmodel.dart';
+import 'package:todo_report/providers/todo_report_provider.dart';
 import 'package:todo_report/util/enum.dart';
 import 'package:todo_report/util/ext.dart';
 
 import '../../util/const.dart';
 
 class StampContainer extends StatelessWidget {
-  const StampContainer({super.key, required this.index, required this.dateTime, this.stamp});
+  const StampContainer({super.key, required this.index});
 
   final int index;
-  final DateTime dateTime;
-  final String? stamp;
 
   @override
   Widget build(BuildContext context) {
-    StampProvider stampNotifier = StampProvider();
-    if(stamp!=null){
-      stampNotifier.chooseStamp(stamp!);
-    }
+    TodoReportProvider todoReportNotifier = TodoReportProvider();
     return ElevatedButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
@@ -40,25 +34,28 @@ class StampContainer extends StatelessWidget {
         showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
-            return StampBottomSheetDialog(stampProvider: stampNotifier);
+            return StampBottomSheetDialog(
+              stampProvider: todoReportNotifier,
+              index: index,
+            );
           },
         );
       },
       child: ListenableBuilder(
-        listenable: stampNotifier,
+        listenable: todoReportNotifier,
         builder: (BuildContext context, Widget? child) {
-          TodoReportViewModel().editTodoReportStamp(stampNotifier.stamp, dateTime, index);
-          if (stampNotifier.stamp == null) {
+          String? stamp = todoReportNotifier.todoReportList[index].stamp;
+          if (stamp == null || stamp.contains('도장없음')) {
             return const SizedBox.shrink();
           }
-          return stampNotifier.stamp!.getImgType() == ImgType.svg
+          return stamp.getImgType() == ImgType.svg
               ? SvgPicture.asset(
-                  stampNotifier.stamp!,
+                  stamp,
                   width: 40,
                   height: 45,
                 )
               : Image.asset(
-                  stampNotifier.stamp!,
+                  stamp,
                   width: 40,
                   height: 45,
                 );
@@ -72,9 +69,11 @@ class StampBottomSheetDialog extends StatelessWidget {
   const StampBottomSheetDialog({
     super.key,
     required this.stampProvider,
+    required this.index,
   });
 
-  final StampProvider stampProvider;
+  final TodoReportProvider stampProvider;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +97,24 @@ class StampBottomSheetDialog extends StatelessWidget {
               crossAxisCount: 4,
               children: List.generate(
                 stampList.length,
-                (index) {
+                (stampDialogItemIndex) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
-                      stampProvider.chooseStamp(
-                        stampList[index],
+                      stampProvider.editTodoReport(
+                        stampProvider.todoReportList[index].copyWith(
+                          stamp: stampList[stampDialogItemIndex],
+                        ),
+                        index,
                       );
+                      Navigator.pop(context);
                     },
-                    child: stampList[index].getImgType() == ImgType.svg
+                    child: stampList[stampDialogItemIndex].getImgType() ==
+                            ImgType.svg
                         ? SvgPicture.asset(
-                            stampList[index],
+                            stampList[stampDialogItemIndex],
                           )
                         : Image.asset(
-                            stampList[index],
+                            stampList[stampDialogItemIndex],
                           ),
                   );
                 },

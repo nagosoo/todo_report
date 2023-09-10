@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/providers/todo_report_viewmodel.dart';
+import 'package:todo_report/model/todo_report_model.dart';
+import 'package:todo_report/providers/todo_report_provider.dart';
 
 import '../../asset/asset_font.dart';
 
 class TodoTextField extends StatelessWidget {
-  const TodoTextField({super.key, required this.index, required this.dateTime, this.title});
+  const TodoTextField({
+    super.key,
+    required this.index,
+  });
 
   final int index;
-  final DateTime dateTime;
-  final  String? title;
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController textEditingController = TextEditingController();
-    if(title!=null) {textEditingController.text = title!;}
+    TodoReportModel todoReportModel =
+        TodoReportProvider().todoReportList[index];
+    if (todoReportModel.title != null) {
+      textEditingController.text = todoReportModel.title!;
+    }
     textEditingController.addListener(() {
-      TodoReportViewModel()
-          .editTodoReportTitle(textEditingController.text, dateTime, index);
+      TodoReportProvider().editTodoReport(
+        todoReportModel.copyWith(title: textEditingController.text),
+        index,
+      );
     });
     return TextField(
       minLines: 1,

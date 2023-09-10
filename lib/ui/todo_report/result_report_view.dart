@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_report/providers/short_rating_provider.dart';
+import 'package:todo_report/providers/todo_report_provider.dart';
 import 'package:todo_report/ui/todo_report/top_widget.dart';
 
 import 'rating_text_field.dart';
@@ -12,27 +14,43 @@ class ResultReportView extends StatelessWidget {
 
   final DateTime dateTime;
 
+  Future<dynamic> _getTodoReport() async {
+    await TodoReportProvider().getTodoReportList(dateTime);
+  }
+
+  Future<dynamic> _getShortRating() async {
+    await ShortRatingProvider().getShortRating(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TopWidget(
-                  dateTime: dateTime,
+    return FutureBuilder(
+        future: Future.wait([_getTodoReport(), _getShortRating()]),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TopWidget(
+                          dateTime: dateTime,
+                        ),
+                        const TableWidget(),
+                        const RatingTextField(),
+                      ],
+                    ),
+                  ),
                 ),
-                TableWidget(
-                  dateTime: dateTime,
-                ),
-                const RatingTextField(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }

@@ -39,7 +39,7 @@ CREATE TABLE $tableTodoReport (
 CREATE TABLE $tableShortRating ( 
  id $idType, 
   dateTime $integerType,
-  description $textType
+  rating $textType
   )
 ''');
   }
@@ -109,7 +109,7 @@ CREATE TABLE $tableShortRating (
   }
 
   //특정 날짜 shortRatingModel 읽기
-  Future<List<ShortRatingModel>> getShortRatingModelWithDate(
+  Future<ShortRatingModel> getShortRatingModelWithDate(
       int dateTime) async {
     final db = await database;
 
@@ -118,25 +118,25 @@ CREATE TABLE $tableShortRating (
       columns: [
         'id',
         'dateTime',
-        'description',
+        'rating',
       ],
       where: 'dateTime = ?',
       whereArgs: [dateTime],
     );
 
     if (maps.isEmpty) {
-      return [];
+      return ShortRatingModel();
     }
 
     List<ShortRatingModel> list = List.generate(maps.length, (index) {
       return ShortRatingModel(
         id: maps[index]['id'] as int,
         dateTime: maps[index]['dateTime'] as int,
-        description: maps[index]['description'] as String?,
+        rating: maps[index]['rating'] as String?,
       );
     });
 
-    return list;
+    return list.first;
   }
 
   //

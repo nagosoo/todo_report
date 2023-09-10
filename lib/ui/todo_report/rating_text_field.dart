@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_report/providers/short_rating_provider.dart';
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
 
@@ -7,6 +8,18 @@ class RatingTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
+    ShortRatingProvider shortRatingProvider = ShortRatingProvider();
+    if(shortRatingProvider.shortRating.rating != null) {
+      textEditingController.text = shortRatingProvider.shortRating.rating!;
+    }
+    textEditingController.addListener(() {
+      shortRatingProvider.editTodoReport(
+        shortRatingProvider.shortRating.copyWith(
+          rating: textEditingController.text,
+        ),
+      );
+    });
     return Column(
       children: [
         Container(
@@ -61,6 +74,7 @@ class RatingTextField extends StatelessWidget {
             height: 140,
             child: Center(
               child: TextField(
+                controller: textEditingController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(

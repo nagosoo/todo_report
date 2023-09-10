@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/model/todo_report_model.dart';
-import 'package:todo_report/providers/todo_report_viewmodel.dart';
+import 'package:todo_report/providers/short_rating_provider.dart';
+import 'package:todo_report/providers/todo_report_provider.dart';
 import 'package:todo_report/util/ext.dart';
 
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
-import '../../repository/todo_report_repository.dart';
 
 class TopWidget extends StatelessWidget {
   const TopWidget({
@@ -65,7 +64,8 @@ class TopWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            saveTodoReport(dateTime);
+            TodoReportProvider().saveTodoReport();
+            ShortRatingProvider().saveShortRating();
             Navigator.of(context).pop();
           },
           child: Align(
@@ -105,10 +105,5 @@ class TopWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  saveTodoReport(DateTime dateTime) async {
-    List<TodoReportModel> todoReportList = TodoReportViewModel().todoReportList;
-    TodoReportRepository().saveTodoReportDB(todoReportList);
   }
 }

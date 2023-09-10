@@ -7,7 +7,8 @@ extension DateTimeParsing on DateTime {
   }
 
   int toMicrosecondsSinceEpochFromDateTime() {
-    return microsecondsSinceEpoch;
+    DateTime dateTime = DateTime(year, month, day, 0, 0, 0, 0, 0);
+    return dateTime.microsecondsSinceEpoch;
   }
 }
 
