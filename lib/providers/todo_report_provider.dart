@@ -19,15 +19,17 @@ class TodoReportProvider with ChangeNotifier {
   List<TodoReportModel> get todoReportList => _todoReportList;
 
   getTodoReportList(DateTime datetime) async {
-    _todoReportList = List.generate(10, (index) => TodoReportModel());
     List<TodoReportModel> todoReportList =
         await TodoReportRepository().getTodoReportDB(datetime);
-    _todoReportList.clear();
-    _todoReportList.addAll(todoReportList);
-    for (int i = _todoReportList.length; i < 10; i++) {
-      _todoReportList.add(TodoReportModel(
-          dateTime: datetime.toMicrosecondsSinceEpochFromDateTime()));
+    if (todoReportList.isEmpty) {
+      _todoReportList = List.generate(
+          10,
+          (index) => TodoReportModel(
+                dateTime: datetime.toMicrosecondsSinceEpochFromDateTime(),
+              ));
+      return;
     }
+    _todoReportList = todoReportList;
 
     for (var e in _todoReportList) {
       debugPrint('items: ${e.toString()}');

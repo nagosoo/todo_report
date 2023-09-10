@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_report/providers/events_provider.dart';
 import 'package:todo_report/providers/short_rating_provider.dart';
 import 'package:todo_report/providers/todo_report_provider.dart';
 import 'package:todo_report/util/ext.dart';
@@ -64,8 +65,11 @@ class TopWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
+            //일정 save to db
             TodoReportProvider().saveTodoReport();
             ShortRatingProvider().saveShortRating();
+            //일정 가져와서 캘린더에 마크 하는 부분
+            EventProvider().getEventDayList();
             Navigator.of(context).pop();
           },
           child: Align(
