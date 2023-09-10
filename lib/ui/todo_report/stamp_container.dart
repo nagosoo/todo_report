@@ -15,6 +15,7 @@ class StampContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TodoReportProvider todoReportNotifier = TodoReportProvider();
+    FocusScope.of(context).requestFocus(FocusNode());
     return ElevatedButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
@@ -92,6 +93,8 @@ class StampBottomSheetDialog extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: GridView.count(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              mainAxisSpacing: 5,
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               crossAxisCount: 4,
