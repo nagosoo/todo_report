@@ -1,3 +1,5 @@
+import 'package:todo_report/util/ext.dart';
+
 class ShortRatingModel {
   final int? id;
   final int? dateTime;
@@ -31,6 +33,6 @@ class ShortRatingModel {
 
   @override
   String toString() {
-    return "ShortRatingModel(id: $id, dateTime: $dateTime, rating: $rating)";
+    return "ShortRatingModel(id: $id, dateTime: ${dateTime?.toDateTimeFromMicrosecondsSinceEpoch()}, rating: $rating)";
   }
 }

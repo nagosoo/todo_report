@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_report/asset/asset_color.dart';
-import 'package:todo_report/providers/events_provider.dart';
+import 'package:todo_report/providers/event_provider.dart';
 import 'package:todo_report/ui/todo_report/result_report_view.dart';
 
 class CalendarView extends StatelessWidget {

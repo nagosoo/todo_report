@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/repository/events__repository.dart';
+import 'package:todo_report/repository/event_repository.dart';
 
 class EventProvider with ChangeNotifier {
   EventProvider._privateConstructor();
@@ -19,7 +19,7 @@ class EventProvider with ChangeNotifier {
   getEventDayList() async {
     _eventDayList.clear();
     Map<DateTime, List<bool>> eventsDayModelForMonth =
-        await EventsRepository().getMapThatHaveEvent();
+        await EventRepository().getMapThatHaveEvent();
     debugPrint('이벤트 있는 날 : ${eventsDayModelForMonth.toString()}');
     _eventDayList.addAll(eventsDayModelForMonth);
     notifyListeners();

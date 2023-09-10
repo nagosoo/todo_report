@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_report/providers/events_provider.dart';
+import 'package:todo_report/providers/event_provider.dart';
 import 'package:todo_report/providers/short_rating_provider.dart';
 import 'package:todo_report/providers/todo_report_provider.dart';
 import 'package:todo_report/util/ext.dart';

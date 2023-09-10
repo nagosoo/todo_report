@@ -18,7 +18,6 @@ class ShortRatingProvider with ChangeNotifier {
   ShortRatingModel get shortRating => _shortRating;
 
   getShortRating(DateTime datetime) async {
-    _shortRating = ShortRatingModel();
     ShortRatingModel shortRatingModel =
         await ShortRatingRepository().getShortRatingDB(datetime);
     if (shortRatingModel.id != null) {
@@ -28,7 +27,7 @@ class ShortRatingProvider with ChangeNotifier {
         dateTime: datetime.toMicrosecondsSinceEpochFromDateTime(),
       );
     }
-    debugPrint('items: ${_shortRating.toString()}');
+    debugPrint('shortRating: ${_shortRating.toString()}');
   }
 
   editTodoReport(ShortRatingModel shortRatingModel) {

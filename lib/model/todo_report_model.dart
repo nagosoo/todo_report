@@ -1,3 +1,5 @@
+import 'package:todo_report/util/ext.dart';
+
 class TodoReportModel {
   final int? id;
   int? dateTime;
@@ -36,6 +38,6 @@ class TodoReportModel {
 
   @override
   String toString() {
-    return "TodoReportModel(id: $id, dateTime: $dateTime, title: $title, stamp: $stamp)";
+    return "TodoReportModel(id: $id, dateTime: ${dateTime?.toDateTimeFromMicrosecondsSinceEpoch()}, title: $title, stamp: $stamp)";
   }
 }
