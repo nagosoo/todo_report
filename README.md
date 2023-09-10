@@ -5,6 +5,6 @@
 - flutter_svg
 - sqflite
 
-<img src="https://github.com/nagosoo/todo_report/assets/82588344/eb9f96f4-69f9-41bb-97cc-7b285d62957a" width="250" height="500"/>
-<img src="https://github.com/nagosoo/todo_report/assets/82588344/97edc0d8-3169-4324-b251-f3894e45add7" width="250" height="500"/>
-<img src="https://github.com/nagosoo/todo_report/assets/82588344/207f0dc7-3da6-4acf-ab01-8f371786b063" width="250" height="500"/>
+<img src="https://github.com/nagosoo/todo_report/assets/82588344/7e6b5a5a-f209-4cb7-bb99-8e7426b8db92" width="250" height="500"/>
+<img src="https://github.com/nagosoo/todo_report/assets/82588344/afafe10c-26d3-4e70-9d17-9cdc835cd1dd" width="250" height="500"/>
+<img src="https://github.com/nagosoo/todo_report/assets/82588344/026a9b1b-00a9-40c9-828b-8e76c2124392" width="250" height="500"/>
