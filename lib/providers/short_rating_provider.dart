@@ -17,17 +17,19 @@ class ShortRatingProvider with ChangeNotifier {
 
   ShortRatingModel get shortRating => _shortRating;
 
+  initShortRating(DateTime datetime){
+    _shortRating = ShortRatingModel(
+      dateTime: datetime.toMicrosecondsSinceEpochFromDateTime(),
+    );
+  }
+
   getShortRating(DateTime datetime) async {
+    initShortRating(datetime);
     ShortRatingModel shortRatingModel =
         await ShortRatingRepository().getShortRatingDB(datetime);
     if (shortRatingModel.id != null) {
       _shortRating = shortRatingModel;
-    } else {
-      _shortRating = ShortRatingModel(
-        dateTime: datetime.toMicrosecondsSinceEpochFromDateTime(),
-      );
     }
-    debugPrint('shortRating: $_shortRating');
     notifyListeners();
   }
 

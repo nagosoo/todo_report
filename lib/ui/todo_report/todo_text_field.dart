@@ -14,30 +14,37 @@ class TodoTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textEditingController = TextEditingController();
-    TodoReportModel todoReportModel =
-        TodoReportProvider().todoReportList[index];
-    if (todoReportModel.title != null) {
-      textEditingController.text = todoReportModel.title!;
-    }
-    textEditingController.addListener(() {
-      TodoReportProvider().editTodoReport(
-        todoReportModel.copyWith(title: textEditingController.text),
-        index,
-      );
-    });
-    return TextField(
-      minLines: 1,
-      maxLines: 2,
-      controller: textEditingController,
-      textAlign: TextAlign.center,
-      style: AssetFont.mapoAgape400.copyWith(
-        fontSize: 20,
-        overflow: TextOverflow.ellipsis,
-      ),
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-      ),
-    );
+    TodoReportProvider todoReportProvider = TodoReportProvider();
+    TextEditingController textEditingController = TextEditingController();
+    String inputText = '';
+    return ListenableBuilder(
+        listenable: todoReportProvider,
+        builder: (BuildContext context, child) {
+          TodoReportModel todoReportModel =
+              TodoReportProvider().todoReportList[index];
+          if (todoReportModel.title != null && inputText.isEmpty) {
+            textEditingController.text = todoReportModel.title!;
+          }
+          return TextField(
+            onChanged: (newText) {
+              inputText = newText;
+              TodoReportProvider().editTodoReport(
+                todoReportModel.copyWith(title: newText),
+                index,
+              );
+            },
+            minLines: 1,
+            maxLines: 2,
+            controller: textEditingController,
+            textAlign: TextAlign.center,
+            style: AssetFont.mapoAgape400.copyWith(
+              fontSize: 20,
+              overflow: TextOverflow.ellipsis,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+          );
+        });
   }
 }
