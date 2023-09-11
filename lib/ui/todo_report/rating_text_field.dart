@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_report/providers/short_rating_provider.dart';
+
 import '../../asset/asset_color.dart';
 import '../../asset/asset_font.dart';
 
@@ -10,9 +11,6 @@ class RatingTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController textEditingController = TextEditingController();
     ShortRatingProvider shortRatingProvider = ShortRatingProvider();
-    if(shortRatingProvider.shortRating.rating != null) {
-      textEditingController.text = shortRatingProvider.shortRating.rating!;
-    }
     textEditingController.addListener(() {
       shortRatingProvider.editTodoReport(
         shortRatingProvider.shortRating.copyWith(
@@ -20,77 +18,90 @@ class RatingTextField extends StatelessWidget {
         ),
       );
     });
-    return Column(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width - 30,
-          decoration: const BoxDecoration(
-            color: AssetColor.grey,
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-              left: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-              right: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: Center(
-              child: Text(
-                '보 완 사 항    및    평 가 ',
-                style: AssetFont.bareunBatang600.copyWith(
-                  fontSize: 16,
+    return ListenableBuilder(
+
+        listenable: shortRatingProvider,
+        builder: (BuildContext context, Widget? child) {
+          return Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                decoration: const BoxDecoration(
+                  color: AssetColor.grey,
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    left: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    right: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: Center(
+                    child: Text(
+                      '${shortRatingProvider.shortRating.rating!}',
+                      style: AssetFont.bareunBatang600.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-        Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-              left: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-              right: BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-          ),
-          child: SizedBox(
-            height: 140,
-            child: Center(
-              child: TextField(
-                controller: textEditingController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  isDense: true,
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(5),
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    left: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    right: BorderSide(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-                style: AssetFont.mapoAgape400.copyWith(
-                  fontSize: 20,
+                child: SizedBox(
+                  height: 140,
+                  child: Center(
+                    child:  TextField(
+                      controller: textEditingController..addListener(() {
+                        String newRating = shortRatingProvider.shortRating.rating!;
+                        if (textEditingController.text != newRating) {
+                          textEditingController.value = textEditingController.value.copyWith(
+                            text: shortRatingProvider.shortRating.rating!,
+                          );
+
+                        }
+                      }),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(5),
+                      ),
+                      textAlign: TextAlign.center,
+                      style: AssetFont.mapoAgape400.copyWith(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        )
-      ],
-    );
+              )
+            ],
+          );
+        });
   }
 }

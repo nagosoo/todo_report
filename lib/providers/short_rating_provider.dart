@@ -27,7 +27,8 @@ class ShortRatingProvider with ChangeNotifier {
         dateTime: datetime.toMicrosecondsSinceEpochFromDateTime(),
       );
     }
-    debugPrint('shortRating: ${_shortRating.toString()}');
+    debugPrint('shortRating: $_shortRating');
+    notifyListeners();
   }
 
   editTodoReport(ShortRatingModel shortRatingModel) {

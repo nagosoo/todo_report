@@ -30,10 +30,7 @@ class TodoReportProvider with ChangeNotifier {
       return;
     }
     _todoReportList = todoReportList;
-
-    for (var e in _todoReportList) {
-      debugPrint('todoReport: ${e.toString()}');
-    }
+    notifyListeners();
   }
 
   editTodoReport(TodoReportModel todoReportModel, int index) {

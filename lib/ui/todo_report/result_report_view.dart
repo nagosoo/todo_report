@@ -24,31 +24,24 @@ class ResultReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Future.wait([_getTodoReport(), _getShortRating()]),
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        TopWidget(
-                          dateTime: dateTime,
-                        ),
-                        const TableWidget(),
-                        const RatingTextField(),
-                      ],
-                    ),
-                  ),
+    Future.wait([_getTodoReport(), _getShortRating()]);
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TopWidget(
+                  dateTime: dateTime,
                 ),
-              ),
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        });
+                const TableWidget(),
+                const RatingTextField(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
