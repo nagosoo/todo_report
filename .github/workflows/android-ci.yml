@@ -8,7 +8,7 @@ on:
     workflow_dispatch:
     push:
         branches:
-            - release
+            - reelease
 
 permissions:
     contents: write
