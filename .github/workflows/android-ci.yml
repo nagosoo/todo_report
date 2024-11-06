@@ -32,7 +32,7 @@ jobs:
                     echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 --d >> ./local.properties
 
             -   name: Generate google-services.json
-                run: echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 --d > ./presentation/google-services.json
+                run: echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 --d > ./android/google-services.json
 
             -   name: Extract Version Name
                 run: |
