@@ -1,4 +1,4 @@
-name: Android CD - Dev
+name: Android CD
 
 env:
     GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false"
