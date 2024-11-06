@@ -36,8 +36,10 @@ jobs:
 
             -   name: Extract Version Name
                 run: |
-                    echo "VERSION_NAME=$(./gradlew -q printVersionName)" >> $GITHUB_ENV
-                    echo "VERSION_CODE=$(./gradlew -q printVersionCode)" >> $GITHUB_ENV
+                    VERSION_NAME=$(grep 'version:' pubspec.yaml | sed -e 's/version: //' -e 's/+.*//')
+                    VERSION_CODE=$(grep 'version:' pubspec.yaml | sed -e 's/version: //' -e 's/.*+//')
+                    echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+                    echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
                 id: extract_version
 
             -   name: setup flutter
