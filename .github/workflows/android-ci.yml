@@ -1,0 +1,69 @@
+name: Android CD
+
+env:
+    GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false"
+    GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - release
+
+permissions:
+    contents: write
+
+jobs:
+    cd-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: Set up JDK 17
+                uses: actions/setup-java@v3
+                with:
+                    distribution: 'corretto'
+                    java-version: 17
+                    
+            -   name: Generate local.properties
+                run: |
+                    echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 --d >> ./local.properties
+
+            -   name: Generate google-services.json
+                run: echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 --d > ./presentation/google-services.json
+
+            -   name: Extract Version Name
+                run: |
+                    echo "VERSION_NAME=$(./gradlew -q printVersionName)" >> $GITHUB_ENV
+                    echo "VERSION_CODE=$(./gradlew -q printVersionCode)" >> $GITHUB_ENV
+                id: extract_version
+
+            -   name: Build Release APK
+                run: |
+                    flutter build apk --release
+
+            -   name: Upload Release Build to Artifacts
+                uses: actions/upload-artifact@v3
+                with:
+                    name: debug-artifacts
+                    path: app/build/outputs/flutter-apk/app-release.apk
+                    if-no-files-found: error
+
+            -   name: Create Github Release
+                uses: softprops/action-gh-release@v1
+                with:
+                    tag_name: "${{ env.VERSION_NAME }}.${{ env.VERSION_CODE }}"
+                    release_name: "${{ env.VERSION_NAME }}.${{ env.VERSION_CODE }}"
+                    generate_release_notes: true
+                    files: |
+                        app/build/outputs/flutter-apk/app-release.apk
+
+            -   name: Upload artifact to Firebase App Distribution
+                uses: wzieba/Firebase-Distribution-Github-Action@v1
+                with:
+                    appId: ${{secrets.FIREBASE_APP_ID}}
+                    serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+                    groups: tester
+                    file: app/build/outputs/flutter-apk/app-release.apk
