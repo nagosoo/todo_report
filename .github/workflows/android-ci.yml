@@ -56,7 +56,7 @@ jobs:
                 uses: actions/upload-artifact@v3
                 with:
                     name: debug-artifacts
-                    path: app/build/outputs/flutter-apk/app-release.apk
+                    path: app/build/outputs/flutter-apk/
                     if-no-files-found: error
 
             -   name: Create Github Release
