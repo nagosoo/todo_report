@@ -40,6 +40,14 @@ jobs:
                     echo "VERSION_CODE=$(./gradlew -q printVersionCode)" >> $GITHUB_ENV
                 id: extract_version
 
+            -   name: setup flutter
+                uses: subosito/flutter-action@v1
+                with: 
+                    channel: 'stable'
+
+            - name : install dependecies
+              run: flutter pub get
+                    
             -   name: Build Release APK
                 run: |
                     flutter build apk --release
